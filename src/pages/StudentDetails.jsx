@@ -19,10 +19,10 @@ function StudentDetails() {
                 separator={<NavigateNextIcon fontSize="small" />}
                 aria-label="breadcrumb"
               >
-                <Link underline="hover" key="1" color="inherit" href="/dashboard" >
+                <Link underline="hover" key="1" color="inherit" path="/dashboard" >
                   Dashboard
                 </Link>,
-                <Link underline="hover" key="1" color="inherit" href="/student" >
+                <Link underline="hover" key="1" color="inherit" path="/student" >
                   Student
                 </Link>,
                 <Typography key="3" color="text.primary">

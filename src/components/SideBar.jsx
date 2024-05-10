@@ -22,15 +22,15 @@ function SideBar() {
           <Link to="/student" className="item">
             <BiSolidGraduation className='icon' /> Student
           </Link>
-          <a href="" className="item">
+          <Link Link to="" className="item">
             <BiTask className='icon' /> Training
-          </a>
-          <a href="" className="item">
+          </Link>
+          <Link to="" className="item">
             <BiPlus className='icon' /> Employees
-          </a>
-          <a href="" className="item">
+          </Link>
+          <Link to="" className="item">
             <BiStats className='icon' /> Report
-          </a>
+          </Link>
           <a onClick={Logout} className="item">
             <BiLogOut className='icon' /> Logout
           </a>
