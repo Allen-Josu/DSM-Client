@@ -1,7 +1,13 @@
 import { BiBookAlt, BiHome, BiLogOut, BiPlus, BiSolidGraduation, BiStats, BiTask } from 'react-icons/bi';
 import "../style/Sidebar.css"
+import { useNavigate } from 'react-router-dom';
 
 function SideBar() {
+  const navigate = useNavigate()
+
+  const Logout = () => {
+    navigate("/")
+  }
   return (
     <>
       <div className="menu">
@@ -10,22 +16,22 @@ function SideBar() {
           <h2>DrivePro</h2>
         </div>
         <div className="menu-list p-3">
-          <a href="" className="item">
+          <a href="/dashboard" className="item">
             <BiHome className='icon' /> Dashboard
           </a>
-          <a href="" className="item">
+          <a href="/student" className="item">
             <BiSolidGraduation className='icon' /> Student
           </a>
           <a href="" className="item">
             <BiTask className='icon' /> Training
           </a>
           <a href="" className="item">
-            <BiPlus className='icon' /> Employee
+            <BiPlus className='icon' /> Employees
           </a>
           <a href="" className="item">
             <BiStats className='icon' /> Report
           </a>
-          <a href="" className="item">
+          <a onClick={Logout} className="item">
             <BiLogOut className='icon' /> Logout
           </a>
         </div>

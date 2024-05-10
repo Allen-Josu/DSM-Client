@@ -1,4 +1,4 @@
-.menu{
+.menu {
     display: flex;
     flex-direction: column;
     gap: 2.3rem;
@@ -6,10 +6,10 @@
     width: 15vw;
 }
 
-.logo{
+.logo {
     text-align: center;
     padding: 20px;
-    color:#27374d ;
+    color: #27374d;
     align-items: center;
     display: flex;
     gap: 20px;
@@ -19,13 +19,13 @@
     font-size: 1.4rem;
 }
 
-.menu-list{
+.menu-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.menu-list .item{
+.menu-list .item {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -36,10 +36,10 @@
     border-radius: 10px;
     transition: 0.3s ease-in-out;
     color: #27374d;
+    cursor: pointer;
 }
 
-.menu-list .item:hover{
+.menu-list .item:hover {
     background: #27374d;
     color: #dde6ed;
-    
 }

@@ -5,4 +5,30 @@
     font-family: "Times New Roman", Times, serif;
 }
 
+.app-background {
+    background: #dde6ed;
+    height: 100vh;
+    display: flex;
+    padding: 20px;
+}
 
+.app-content {
+    background: #fff;
+    border-radius: 25px;
+    padding: 20px;
+    width: 80vw;
+    /* border: 2px solid black; */
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: #dde6ed;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #27374d;
+    border-radius: 10px;
+}
