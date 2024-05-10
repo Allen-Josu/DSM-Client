@@ -31,8 +31,8 @@ function Login() {
     return (
         <>
             <div className="d-flex justify-content-center align-items-center login">
-                <Box component={Paper} elevation={5} className="w-25 d-flex rounded-3 py-5 justify-content-center align-items-center flex-column" >
-                    <h3>Welcome Back</h3>
+                <Box component={Paper} elevation={5} className="w-25 d-flex rounded-3 py-4 justify-content-center align-items-center flex-column" >
+                    <h3 style={{ letterSpacing: "5px" }}>Welcome Back</h3>
                     <form className="w-100 px-4" onSubmit={handleSubmit}>
                         <TextField className="w-100 mt-3" name="username" id="outlined-basic" label="Username" variant="outlined" onChange={Validate} />
                         <TextField className="w-100 mt-3" name="password" type="password" id="outlined-basic" label="Password" variant="outlined" onChange={Validate} />

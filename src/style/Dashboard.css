@@ -1,4 +1,27 @@
 .dashboard {
-    background-color: #e3f4f4 !important;
+    background: #dde6ed;
     height: 100vh;
+    display: flex;
+    padding: 20px;
+}
+
+.dashboard-content {
+    background: #fff;
+    border-radius: 25px;
+    padding: 20px;
+    width: 80vw;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: #dde6ed;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #27374d;
+    border-radius: 10px;
 }

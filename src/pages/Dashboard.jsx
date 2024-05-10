@@ -6,6 +6,9 @@ function Dashboard() {
         <>
             <div className="dashboard">
                 <SideBar />
+                <div className="dashboard-content">
+                    <h2>Dashboard</h2>
+                </div>
             </div>
         </>
     )
