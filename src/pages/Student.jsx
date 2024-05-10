@@ -1,12 +1,7 @@
 import SideBar from "../components/SideBar"
-
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import Stack from '@mui/material/Stack';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import StudentCard from "../components/StudentCard";
 import NewStudent from "../components/NewStudent";
+import Breadcrump from "../components/ui/Breadcrump";
 
 
 
@@ -20,22 +15,7 @@ function Student() {
                     <div style={{ background: " #fff" }}>
 
                         {/* Breadcrump */}
-                        <div className="d-flex flex-column w-100 mt-2" style={{ color: "#dde6ed" }}>
-                            <Stack spacing={2}>
-                                <Breadcrumbs
-                                    separator={<NavigateNextIcon fontSize="small" />}
-                                    aria-label="breadcrumb"
-                                >
-                                    <Link underline="hover" key="1" color="inherit" path="/dashboard" >
-                                        Dashboard
-                                    </Link>,
-                                    <Typography key="3" color="text.primary">
-                                        Student
-                                    </Typography>,
-                                </Breadcrumbs>
-                            </Stack>
-                        </div>
-
+                        <Breadcrump current={["Dashboard", "Student"]} />
 
                         {/* Heading */}
                         <div className="d-flex align-items-center mt-5 justify-content-between">
@@ -46,8 +26,6 @@ function Student() {
                             </div>
                         </div>
                     </div>
-
-
 
                     {/* Student Card */}
                     <div className="mt-5 w-100" >
