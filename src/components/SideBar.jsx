@@ -1,11 +1,20 @@
-import { BiBookAlt, BiHome, BiLogOut, BiPlus, BiSolidGraduation, BiStats, BiTask } from 'react-icons/bi';
+import { BiBookAlt, BiHome, BiLogOut, BiPlus, BiReceipt, BiSolidGraduation, BiStats, BiTask } from 'react-icons/bi';
 import "../style/Sidebar.css"
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function SideBar() {
+  // Should change this value to global value
+  const [isAdmin, setIsAdmin] = useState(false)
+
   const navigate = useNavigate()
 
   const Logout = () => {
+    setIsAdmin(true)
+    navigate("/")
+  }
+  const Login = () => {
+    setIsAdmin(false)
     navigate("/")
   }
   return (
@@ -22,18 +31,39 @@ function SideBar() {
           <Link to="/student" className="item">
             <BiSolidGraduation className='icon' /> Student
           </Link>
-          <Link Link to="" className="item">
-            <BiTask className='icon' /> Training
+
+          {
+            isAdmin &&
+            <Link to="/training" className="item">
+              <BiTask className='icon' /> Training
+            </Link>
+          }
+
+          <Link to="/fees" className="item">
+            <BiReceipt className='icon' /> Fees
           </Link>
-          <Link to="" className="item">
-            <BiPlus className='icon' /> Employees
-          </Link>
-          <Link to="" className="item">
-            <BiStats className='icon' /> Report
-          </Link>
-          <a onClick={Logout} className="item">
+
+          {
+            isAdmin &&
+            <Link to="" className="item">
+              <BiPlus className='icon' /> Employees
+            </Link>
+          }
+          {
+            isAdmin &&
+            <Link to="/reports" className="item">
+              <BiStats className='icon' /> Report
+            </Link>
+          }
+          <Link onClick={Logout} className="item">
             <BiLogOut className='icon' /> Logout
-          </a>
+          </Link>
+          {
+            isAdmin &&
+            <Link onClick={Login} className="item">
+              <BiLogOut className='icon' /> Login
+            </Link>
+          }
         </div>
       </div>
     </>

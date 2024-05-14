@@ -1,19 +1,28 @@
 
-import Box from '@mui/material/Box';
-import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import { useState } from 'react';
+import { Modal } from 'antd';
+import { BiPlus } from 'react-icons/bi';
 
 function NewStudent() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
     return (
         <>
-            <Box sx={{ height: 810, transform: 'translateZ(0px)', flexGrow: 1 }}>
-                <SpeedDial
-                    ariaLabel="SpeedDial basic example"
-                    sx={{ position: 'absolute', bottom: 20, right: 27 }}
-                    icon={<SpeedDialIcon />}
-                >
-                </SpeedDial>
-            </Box>
+            <button className="btn btn-success px-3 d-flex align-items-center gap-2" onClick={showModal}><BiPlus /> New </button>
+
+            <Modal centered open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <div className=' p-3'>
+                    <h2 className="text-center" style={{ letterSpacing: "3px" }}>New Student</h2>
+                </div>
+            </Modal>
 
         </>
     )
