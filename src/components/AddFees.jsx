@@ -1,14 +1,34 @@
 import { BiPlus } from "react-icons/bi"
 import { useState } from "react";
-import { Modal } from 'antd';
+import { Modal, Select } from 'antd';
 import { Box } from "@mui/material";
-import TextField from '@mui/material/TextField';
+import { Form, Input } from 'antd';
 
 
 function AddFees() {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
 
+    //Ant Form
+    // const [form] = Form.useForm();
+    const [formLayout, setFormLayout] = useState('horizontal');
+
+    const onFormLayoutChange = ({ layout }) => {
+        setFormLayout(layout);
+    };
+    const formItemLayout =
+        formLayout === 'horizontal'
+            ? {
+                labelCol: {
+                    span: 4,
+                },
+                wrapperCol: {
+                    span: 19,
+                },
+            }
+            : null;
+
+    // Ant Design Form end
     const showModal = () => {
         setOpen(true);
     };
@@ -19,6 +39,7 @@ function AddFees() {
             setOpen(false);
             setConfirmLoading(false);
         }, 2000);
+        alert("Fees Paid Successfully")
     };
 
     const handleCancel = () => {
@@ -37,12 +58,40 @@ function AddFees() {
                 onCancel={handleCancel} >
                 <p className="fs-5" style={{ letterSpacing: "5px" }}>New Fees</p>
                 <Box className="w-100 mt-3">
-                    <form action="" >
-                        <TextField label="Student ID" className="w-100" variant="outlined" />
-                    </form>
+                    <Form
+                        {...formItemLayout}
+                        layout={formLayout}
+                        initialValues={{
+                            layout: formLayout,
+                        }}
+                        onValuesChange={onFormLayoutChange}
+                    >
+                        <Form.Item label="Student ID">
+                            <Input placeholder="eg : 1001" />
+                        </Form.Item>
+                        <Form.Item label="Name">
+                            <Input value="Allen Joseph Joy" disabled style={{ color: "black" }} />
+                        </Form.Item>
+                        <Form.Item label="Course">
+                            <Input value="Four Wheelers" disabled style={{ color: "black" }} />
+                        </Form.Item>
+                        <Form.Item label="Fees Pending">
+                            <Input value="5500" disabled style={{ color: "red" }} />
+                        </Form.Item>
+                        <Form.Item label="Purpose">
+                            <Select>
+                                <Select.Option value="Course Fees">Course Fees</Select.Option>
+                                <Select.Option value="Course Fees">Additional Fees</Select.Option>
+                                <Select.Option value="Course Fees">Reattempt Fees</Select.Option>
+                                <Select.Option value="Course Fees">Trail Fees</Select.Option>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item label="Amount">
+                            <Input />
+                        </Form.Item>
+                    </Form>
                 </Box>
             </Modal >
-
         </>
     )
 }
