@@ -10,6 +10,7 @@ import Fees from './pages/Fees';
 import SideBar from './components/SideBar';
 import Login from './pages/Login';
 import NewStudent from "./components/NewStudent"
+import Categories from './pages/Categories';
 
 function App() {
 
@@ -35,8 +36,8 @@ function App() {
             <Route path="/register-student" element={<NewStudent />} />
             <Route path="/training" element={<Training />} />
             <Route path='/fees' element={<Fees />} />
+            <Route path="/categories" element={<Categories />} />
             <Route path='/reports' element={<Reports />} />
-
           </Routes>
         </div>
       </div>

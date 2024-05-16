@@ -1,4 +1,4 @@
-import { BiBookAlt, BiHome, BiLogOut, BiReceipt, BiSolidGraduation, BiTask } from 'react-icons/bi';
+import { BiBookAlt, BiCategory, BiHome, BiLogOut, BiPaperPlane, BiReceipt, BiSolidGraduation, BiTask } from 'react-icons/bi';
 import "../style/Sidebar.css"
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -32,9 +32,16 @@ function SideBar() {
             <BiTask className='icon' /> Training
           </Link>
 
-
           <Link to="/fees" className="item">
             <BiReceipt className='icon' /> Fees
+          </Link>
+
+          <Link to="/categories" className="item">
+            <BiCategory className='icon' /> Categories
+          </Link>
+
+          <Link to="/reports" className="item">
+            <BiPaperPlane className='icon' /> Reports
           </Link>
 
           <a onClick={Logout} className="item">
