@@ -1,7 +1,8 @@
-import { Box, Paper, Typography } from "@mui/material"
+// import { Box, Paper, Typography } from "@mui/material"
 import NewTraining from "../components/NewTraining"
 import Breadcrump from "../components/ui/Breadcrump"
 import SearchBar from "../components/ui/SearchBar"
+import TrainingCard from "../components/TrainingCard"
 
 function Training() {
     return (
@@ -21,7 +22,7 @@ function Training() {
             </div>
 
             {/* View Training */}
-            <div className="mt-5 ">
+            {/* <div className="mt-5 ">
                 <div className="row">
                     <div className="col-md-4">
                         <Box component={Paper} elevation={16}>
@@ -31,6 +32,15 @@ function Training() {
                     <div className="col-md-4"></div>
                     <div className="col-md-4"></div>
                 </div>
+            </div> */}
+
+            <div className="mt-5" style={{ display: "grid", gridTemplateColumns: "auto auto auto", gridGap: "1.5rem" }}>
+                <TrainingCard />
+                <TrainingCard />
+                <TrainingCard />
+                <TrainingCard />
+                <TrainingCard />
+                <TrainingCard />
             </div>
         </>
     )

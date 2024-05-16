@@ -79,7 +79,7 @@ function AddFees() {
                             <Input value="5500" disabled style={{ color: "red" }} />
                         </Form.Item>
                         <Form.Item label="Purpose">
-                            <Select>
+                            <Select placeholder="Select a Course">
                                 <Select.Option value="Course Fees">Course Fees</Select.Option>
                                 <Select.Option value="Course Fees">Additional Fees</Select.Option>
                                 <Select.Option value="Course Fees">Reattempt Fees</Select.Option>

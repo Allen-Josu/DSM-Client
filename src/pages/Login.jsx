@@ -24,7 +24,7 @@ function Login() {
     //On Form Submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert("Data Submitted Successfully")
+        alert("Data uploaded Successfully")
         navigate("/dashboard")
     }
 
@@ -33,9 +33,9 @@ function Login() {
             <div className="d-flex justify-content-center align-items-center login" >
                 <Box component={Paper} elevation={5} className="w-25 d-flex rounded-3 py-4 justify-content-center align-items-center flex-column" >
                     <h3 style={{ letterSpacing: "5px" }}>Welcome Back</h3>
-                    <form className="w-100 px-4" onSubmit={handleSubmit}>
-                        <TextField className="w-100 mt-3" name="username" id="outlined-basic" label="Username" variant="outlined" onChange={Validate} />
-                        <TextField className="w-100 mt-3" name="password" type="password" id="outlined-basic" label="Password" variant="outlined" onChange={Validate} />
+                    <form className="w-100 px-4" onSubmit={(e) => handleSubmit(e)}>
+                        <TextField className="w-100 mt-3" name="username" label="Username" variant="outlined" onChange={Validate} />
+                        <TextField className="w-100 mt-3" name="password" type="password" label="Password" variant="outlined" onChange={Validate} />
                         <div className="d-flex justify-content-evenly align-items-center gap-2 mt-3 ">
                             <Button className="w-100" type="submit" variant="contained">Submit</Button>
                             <Button className="w-100" type="reset" variant="outlined" >Reset</Button>

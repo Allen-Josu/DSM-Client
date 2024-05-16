@@ -1,28 +1,29 @@
+import Breadcrump from './ui/Breadcrump';
+import { Divider } from "@mui/material";
 
-import { useState } from 'react';
-import { Modal } from 'antd';
-import { BiPlus } from 'react-icons/bi';
 
 function NewStudent() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
     return (
         <>
-            <button className="btn btn-success px-3 d-flex align-items-center gap-2" onClick={showModal}><BiPlus /> New </button>
 
-            <Modal centered open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <div className=' p-3'>
-                    <h2 className="text-center" style={{ letterSpacing: "3px" }}>New Student</h2>
+            <Breadcrump current={["Dashboard", "Student", "Register-Student"]} />
+
+            <div className='mt-5'>
+                <h2 style={{ letterSpacing: "5px" }}>Student Registration</h2>
+                <div className='mt-5'>
+                    <h4 style={{ letterSpacing: "3px", color: "grey" }}>Personal Details</h4>
+                    <Divider color="black" />
+
+                    <form className='px-3 mt-5' style={{ fontSize: "25px" }}>
+
+                    </form>
+
                 </div>
-            </Modal>
+
+            </div>
+
+
+
 
         </>
     )

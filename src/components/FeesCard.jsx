@@ -53,7 +53,7 @@ function FeesCard() {
                     </div>
                     <div className="col-md-7 d-flex gap-2 flex-column ">
                         <Typography>Allen Joseph Joy</Typography>
-                        <Typography><a href="" >1001</a></Typography>
+                        <Typography ><a href="" >1001</a></Typography>
                         <Typography>Two and Four Wheelers</Typography>
                         <Typography>8547171373</Typography>
                         <Typography>4500</Typography>

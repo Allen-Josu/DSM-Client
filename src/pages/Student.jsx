@@ -1,11 +1,17 @@
+import { BiPlus } from "react-icons/bi";
 import StudentCard from "../components/StudentCard";
-import NewStudent from "../components/NewStudent";
 import Breadcrump from "../components/ui/Breadcrump";
 import SearchBar from "../components/ui/SearchBar";
+import { useNavigate } from "react-router-dom";
 
 
 
 function Student() {
+    const navigate = useNavigate()
+
+    const NewStudentPage = () => {
+        navigate("/register-student")
+    }
 
     return (
         <>
@@ -19,7 +25,7 @@ function Student() {
                     <SearchBar place="Student ID or Name" />
                 </div>
                 <div className="me-5">
-                    <NewStudent />
+                    <button className="btn btn-success px-3 d-flex align-items-center gap-2" onClick={NewStudentPage} ><BiPlus /> New </button>
                 </div>
             </div>
 
