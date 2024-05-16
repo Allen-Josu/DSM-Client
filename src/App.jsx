@@ -8,20 +8,28 @@ import StudentDetails from './pages/StudentDetails';
 import Reports from './pages/Reports';
 import Training from './pages/Training';
 import Fees from './pages/Fees';
+import SideBar from './components/SideBar';
 
 function App() {
 
+
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path='/student' element={<Student />} />
-        <Route path='/student-details' element={<StudentDetails />} />
-        <Route path='/fees' element={<Fees />} />
-        <Route path="/training" element={<Training />} />
-        <Route path='/reports' element={<Reports />} />
-      </Routes>
+      {/* Need to Route Login Page */}
+      <div className="app-background">
+        <SideBar />
+        <div className="app-content">
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path='/student' element={<Student />} />
+            <Route path='/student-details' element={<StudentDetails />} />
+            <Route path='/fees' element={<Fees />} />
+            <Route path="/training" element={<Training />} />
+            <Route path='/reports' element={<Reports />} />
+          </Routes>
+        </div>
+      </div>
+
     </>
   )
 }

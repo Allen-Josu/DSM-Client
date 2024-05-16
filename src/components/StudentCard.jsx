@@ -19,7 +19,6 @@ function StudentCard() {
                             <p>Address : <span>Alackaparambil , Thuravoor P O , Cherthala, Alappuzha</span></p>
                             <p>Pin : <span>688532</span></p>
                         </div>
-
                     </div>
                 </Box>
             </Link>

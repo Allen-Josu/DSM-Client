@@ -30,7 +30,7 @@ function Login() {
 
     return (
         <>
-            <div className="d-flex justify-content-center align-items-center login">
+            <div className="d-flex justify-content-center align-items-center login" >
                 <Box component={Paper} elevation={5} className="w-25 d-flex rounded-3 py-4 justify-content-center align-items-center flex-column" >
                     <h3 style={{ letterSpacing: "5px" }}>Welcome Back</h3>
                     <form className="w-100 px-4" onSubmit={handleSubmit}>

@@ -7,4 +7,5 @@
     background-size: cover;
     height: 100vh;
     background-image: url(../assets/cool-background.svg);
+    overflow: hidden;
 }
