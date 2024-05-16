@@ -2,6 +2,7 @@ import { Divider } from '@mui/material';
 import Table from 'react-bootstrap/Table';
 import { BiCode, BiPlus, BiTrash } from 'react-icons/bi';
 import Breadcrump from '../components/ui/Breadcrump';
+import { Button } from 'antd';
 
 
 
@@ -41,8 +42,8 @@ function Categories() {
                                     <td>Four Wheelers</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -51,8 +52,8 @@ function Categories() {
                                     <td>Two Wheelers</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center'>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -61,8 +62,8 @@ function Categories() {
                                     <td>Two and Four Wheelers</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center'>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -92,8 +93,8 @@ function Categories() {
                                     <td>Course Fee</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -102,8 +103,8 @@ function Categories() {
                                     <td>Trial Fee</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center'>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -112,8 +113,8 @@ function Categories() {
                                     <td>Additional Fee</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center'>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -122,8 +123,8 @@ function Categories() {
                                     <td>Re-Attempt Fee</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center'>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -159,8 +160,8 @@ function Categories() {
                                     <td>No</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -173,8 +174,8 @@ function Categories() {
                                     <td>No</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -187,8 +188,8 @@ function Categories() {
                                     <td>No</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -201,8 +202,8 @@ function Categories() {
                                     <td>No</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -215,8 +216,8 @@ function Categories() {
                                     <td>No</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -229,8 +230,8 @@ function Categories() {
                                     <td>Yes</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -265,8 +266,8 @@ function Categories() {
                                     <td>KL 32 M 1234</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -278,8 +279,8 @@ function Categories() {
                                     <td>KL 23 M 0234</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -291,8 +292,8 @@ function Categories() {
                                     <td>KL 33 M 2134</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -304,8 +305,8 @@ function Categories() {
                                     <td>KL 32 M 234</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -317,8 +318,8 @@ function Categories() {
                                     <td>KL 23 M 2134</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>
@@ -330,8 +331,8 @@ function Categories() {
                                     <td>KL 32 M 9339</td>
                                     <td>
                                         <div className='d-flex gap-5 justify-content-center '>
-                                            <button className="btn btn-warning d-flex gap-2 align-items-center"><BiCode /> Edit</button>
-                                            <button className="btn btn-danger d-flex gap-2 align-items-center"><BiTrash /> Delete</button>
+                                            <Button warning className=" d-flex gap-2 px-3 align-items-center"><BiCode /> Edit</Button>
+                                            <Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button>
                                         </div>
                                     </td>
                                 </tr>

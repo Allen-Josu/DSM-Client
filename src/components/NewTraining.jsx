@@ -1,33 +1,17 @@
-import { BiPlus } from "react-icons/bi"
+import { BiPlus, BiTrash } from "react-icons/bi"
 import { useState } from "react";
 import { Modal, Select } from 'antd';
 import { Box } from "@mui/material";
 import { Form, Input } from 'antd';
 import { DatePicker } from 'antd';
+import Table from 'react-bootstrap/Table';
+import { Button } from 'antd';
 
 function NewTraining() {
 
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
 
-    //Ant Form
-    // const [form] = Form.useForm();
-    const [formLayout, setFormLayout] = useState('horizontal');
-
-    const onFormLayoutChange = ({ layout }) => {
-        setFormLayout(layout);
-    };
-    const formItemLayout =
-        formLayout === 'horizontal'
-            ? {
-                labelCol: {
-                    span: 2.5,
-                },
-                wrapperCol: {
-                    span: 29,
-                },
-            }
-            : null;
 
     // Ant Design Form end
     const showModal = () => {
@@ -61,14 +45,6 @@ function NewTraining() {
                 onCancel={handleCancel} >
                 <p className="fs-5" style={{ letterSpacing: "5px" }}>Training</p>
                 <Box className="w-100 mt-3">
-                    <Form
-                        {...formItemLayout}
-                        layout={formLayout}
-                        initialValues={{
-                            layout: formLayout,
-                        }}
-                        onValuesChange={onFormLayoutChange}
-                    >
 
                         <Form.Item label="Trainer">
                             <Select placeholder="Select Trainer">
@@ -88,13 +64,49 @@ function NewTraining() {
                         </Form.Item>
                         <div className="d-flex gap-2">
                             <Form.Item label="Date">
-                                <DatePicker onChange={onChange} />
+                                <DatePicker placeholder="YYYY-MM-DD" onChange={onChange} />
                             </Form.Item>
                             <Form.Item label="Student ID"  >
                                 <Input placeholder="eg : 1001" />
                             </Form.Item>
                         </div>
-                    </Form>
+
+                    <div>
+                        <Table striped bordered hover>
+                            <thead className="text-center">
+                                <tr>
+                                    <th>Sl No</th>
+                                    <th>Student Id</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-center ">
+                                <tr>
+                                    <td>1</td>
+                                    <td>1001</td>
+                                    <td>Allen Joseph Joy</td>
+                                    <td className="d-flex justify-content-center"><Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>2</td>
+                                    <td>1002</td>
+                                    <td>Aaron Joseph Joy</td>
+                                    <td className="d-flex justify-content-center"><Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>3</td>
+                                    <td>1003</td>
+                                    <td>Anwin Joseph Joy</td>
+                                    <td className="d-flex justify-content-center"><Button danger className="d-flex align-items-center gap-2 px-3"><BiTrash /> Delete</Button></td>
+                                </tr>
+
+
+                            </tbody>
+                        </Table>
+                    </div>
                 </Box>
             </Modal >
         </>

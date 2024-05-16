@@ -1,10 +1,8 @@
-import { BiBookAlt, BiCategory, BiHome, BiLogOut, BiPaperPlane, BiReceipt, BiSolidGraduation, BiTask } from 'react-icons/bi';
+import { BiBookAlt, BiCategory, BiHome, BiLogOut, BiPaperPlane, BiReceipt, BiSolidGraduation, BiTask, BiUser } from 'react-icons/bi';
 import "../style/Sidebar.css"
 import { Link, useNavigate } from 'react-router-dom';
 
 function SideBar() {
-  // Should change this value to global value
-
   const navigate = useNavigate()
 
   const Logout = () => {
@@ -42,6 +40,10 @@ function SideBar() {
 
           <Link to="/reports" className="item">
             <BiPaperPlane className='icon' /> Reports
+          </Link>
+
+          <Link to="/profile" className="item">
+            <BiUser className='icon' /> Profile
           </Link>
 
           <a onClick={Logout} className="item">

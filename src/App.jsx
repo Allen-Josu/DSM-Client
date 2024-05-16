@@ -11,6 +11,7 @@ import SideBar from './components/SideBar';
 import Login from './pages/Login';
 import NewStudent from "./components/NewStudent"
 import Categories from './pages/Categories';
+import Profile from './pages/Profile';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         <div className="app-content">
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path='/student' element={<Student />} />
             <Route path='/student-details' element={<StudentDetails />} />
             <Route path="/register-student" element={<NewStudent />} />
