@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 
 function SearchBar({place}) {
-    console.log(place);
     return (
         <>
             <input type="text" className="form-control rounded-5" style={{ background: "#dde6ed", letterSpacing: "3px" }} placeholder={`Enter ${place}`} />

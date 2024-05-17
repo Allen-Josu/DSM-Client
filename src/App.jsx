@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import NewStudent from "./components/NewStudent"
 import Categories from './pages/Categories';
 import Profile from './pages/Profile';
+// import PageNotFound from './pages/PageNotFound';
 
 function App() {
 
@@ -22,28 +23,25 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/*" element={
+          <div className="app-background">
+            <SideBar />
+            <div className="app-content">
+              <Routes>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path='/student' element={<Student />} />
+                <Route path='/student-details' element={<StudentDetails />} />
+                <Route path="/register-student" element={<NewStudent />} />
+                <Route path="/training" element={<Training />} />
+                <Route path='/fees' element={<Fees />} />
+                <Route path="/categories" element={<Categories />} />
+                <Route path='/reports' element={<Reports />} />
+              </Routes>
+            </div>
+          </div>
+        } />
       </Routes>
-
-
-
-
-      <div className="app-background">
-        <SideBar isAdmin />
-        <div className="app-content">
-          <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path='/student' element={<Student />} />
-            <Route path='/student-details' element={<StudentDetails />} />
-            <Route path="/register-student" element={<NewStudent />} />
-            <Route path="/training" element={<Training />} />
-            <Route path='/fees' element={<Fees />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path='/reports' element={<Reports />} />
-          </Routes>
-        </div>
-      </div>
-
     </>
   )
 }

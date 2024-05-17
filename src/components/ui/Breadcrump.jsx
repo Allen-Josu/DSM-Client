@@ -5,8 +5,6 @@ import Stack from '@mui/material/Stack';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 function Breadcrump({ current }) {
-    console.log(current);
-    console.log(current[1]);
     return (
         <>
             <div className="d-flex flex-column w-100 mt-2" style={{ color: "#dde6ed" }}>
