@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import NewStudent from "./components/NewStudent"
 import Categories from './pages/Categories';
 import Profile from './pages/Profile';
+import DemoForm from './components/DemoForm';
 // import PageNotFound from './pages/PageNotFound';
 
 function App() {
@@ -37,6 +38,9 @@ function App() {
                 <Route path='/fees' element={<Fees />} />
                 <Route path="/categories" element={<Categories />} />
                 <Route path='/reports' element={<Reports />} />
+
+                <Route path='/demo' element={<DemoForm />} />
+
               </Routes>
             </div>
           </div>

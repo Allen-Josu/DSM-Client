@@ -19,7 +19,6 @@ const steps = [
     }
 ];
 
-// Student Id and Student Age is not updating in use State
 
 function NewStudent() {
     const { token } = theme.useToken();
@@ -45,41 +44,9 @@ function NewStudent() {
     // To Validate the Student Details and store the data
     const Validate = (e) => {
         const { name, value } = e.target
-
-        if (name == "name") {
-            setStudentData({ ...studentData, name: value })
-        }
-        if (name == "fathers_name") {
-            setStudentData({ ...studentData, fathers_name: value })
-        }
-        if (name == "mothers_name") {
-            setStudentData({ ...studentData, mothers_name: value })
-        }
-        if (name == "fathers_name") {
-            setStudentData({ ...studentData, fathers_name: value })
-        }
-        if (name == "dob") {
-            setStudentData({ ...studentData, dob: value })
-        }
-        if (name == "gender") {
-            setStudentData({ ...studentData, gender: value })
-        }
-        if (name == "email") {
-            setStudentData({ ...studentData, email: value })
-        }
-        if (name == "mobile") {
-            setStudentData({ ...studentData, mobile: value })
-        }
-        if (name == "address") {
-            setStudentData({ ...studentData, address: value })
-        }
-        if (name == "course_fees") {
-            setStudentData({ ...studentData, course_fees: value })
-        }
-        if (name == "amount_paid") {
-            setStudentData({ ...studentData, amount_paid: value })
-        }
+        setStudentData({ ...studentData, [name]: value })
     }
+    console.log(studentData);
 
     // To get Course details of the Student
     const SelectionCourse = (value) => {
@@ -93,39 +60,46 @@ function NewStudent() {
 
     // To get the DOB and calculate the age of Student at the time of Admission
     const Dates = (e) => {
+        console.log(e);
+        var day = e.$D
+        var month = e.$M + 1
+        var year = e.$y
 
-        e.$M += 1
-        const current = new Date()
-        const currYear = current.getFullYear()
-        const currMonth = current.getMonth() + 1
-        const currDay = current.getDate()
+        if (day < 10) {
+            day = `0${day}`
+        }
+        if (month < 10) {
+            month = `0${month}`
+        }
 
-        let student_age = 0
-        if (currYear > e.$y) {
-            student_age = currYear - e.$y
-            if (currMonth > e.$M) {
-                student_age += 1
+        const currDate = new Date()
+        const curr_year = currDate.getFullYear()
+        const curr_month = currDate.getMonth() + 1
+        const curr_day = currDate.getDate()
+
+        if (curr_year >= year) {
+            var age = curr_year - year
+            if (curr_month < month) {
+                age += 1
             }
-            else if (currMonth == e.$M) {
-                if (currDay > e.$D) {
-                    student_age += 1
+            else if (curr_month == month) {
+                if (day > curr_day) {
+                    age += 1
                 }
             }
         }
-        else {
-            alert("Dob is invalid")
-        }
-        setStudentData({ ...studentData, age: `${student_age}` })
 
-        if (e.$M < 10) {
-            e.$M = `0${e.$M + 1}`
+        const DOB = `${year}-${month}-${day}`
+        setStudentData({ ...studentData, dob: DOB })
+
+        if (age < 18) {
+            alert("Age should be greater than 18 to register for the class")
         }
-        if (e.$D < 10) {
-            e.$D = `0${e.$D}`
+        else {
+            setStudentData({ ...studentData, age: age })
         }
-        const date = `${e.$y}-${e.$M}-${e.$D} `
-        setStudentData({ ...studentData, dob: date })
     }
+
     // To Reset the Student Data
     const ResetData = () => {
         setStudentData({
@@ -146,13 +120,16 @@ function NewStudent() {
         })
     }
 
+    // To generate Student ID
+    const Generate_S_ID = () => {
+        const sid = 1001
+        setStudentData({ ...studentData, sid: `${sid}` })
+        next()
+    }
+
     // To submit the Form
     const handleSubmit = (e) => {
         e.preventDefault()
-        // To generate Student ID
-        const sid = 1001
-        setStudentData({ ...studentData, sid: sid })
-        alert(`Student is registered with Student id ${studentData.sid}`)
         // To clear the values of already registered Student
         setStudentData({
             sid: "",
@@ -210,7 +187,6 @@ function NewStudent() {
 
                         {
                             current == 0 &&
-
                             <div >
                                 <Form
                                     style={{
@@ -220,10 +196,10 @@ function NewStudent() {
                                 >
                                     <div className='d-flex flex-column justify-content-start w-50'>
                                         {/* Name */}
-                                        <Form.Item label="Name" style={{ marginLeft: "50px" }}>
-                                            <Input name="name" value={"" || studentData.name} onChange={(e) => { Validate(e) }} />
+                                        <Form.Item label="Name" name="name" style={{ marginLeft: "50px" }} >
+                                            <Input name="name" value={"" || studentData.name} rules={[{ required: true }]} onChange={(e) => { Validate(e) }} />
                                         </Form.Item>
-                                        {/* Name */}
+                                        {/* Mother'sName */}
                                         <Form.Item label="Mothers Name" >
                                             <Input name="mothers_name" value={"" || studentData.mothers_name} onChange={(e) => { Validate(e) }} />
                                         </Form.Item>
@@ -247,6 +223,7 @@ function NewStudent() {
                                             <Input name="fathers_name" value={"" || studentData.fathers_name} onChange={(e) => { Validate(e) }} />
                                         </Form.Item>
                                         <div className='d-flex gap-3' style={{ marginLeft: "45px" }}>
+                                            {/* DOB */}
                                             <Form.Item label="DOB" className='d-flex' >
                                                 <DatePicker onChange={(e) => { Dates(e) }} placeholder={`${studentData.dob}`} />
                                             </Form.Item>
@@ -337,60 +314,61 @@ function NewStudent() {
                                     marginTop: 50,
                                 }}
                                 className='d-flex gap-5 px-5'
+                                disabled
                             >
                                 <div className='d-flex flex-column justify-content-start w-50'>
                                     {/* Name */}
                                     <Form.Item label="Name" style={{ marginLeft: "50px" }}>
-                                        <Input name="name" value={studentData.name} disabled />
+                                        <Input name="name" value={studentData.name} />
                                     </Form.Item>
                                     {/* Name */}
                                     <Form.Item label="Mothers Name" >
-                                        <Input name="mothers_name" value={studentData.mothers_name} disabled />
+                                        <Input name="mothers_name" value={studentData.mothers_name} />
                                     </Form.Item>
                                     {/* Gender */}
                                     <Form.Item label="Gender" className='d-flex' style={{ marginLeft: "43px" }}>
-                                        <Input value={studentData.gender} disabled />
+                                        <Input value={studentData.gender} />
                                     </Form.Item>
                                     {/* Mobile */}
                                     <Form.Item label="Mobile" style={{ marginLeft: "43px" }}>
-                                        <Input name="mobile" value={studentData.mobile} disabled />
+                                        <Input name="mobile" value={studentData.mobile} />
                                     </Form.Item>
                                     {/* Address */}
                                     <Form.Item label="Address" style={{ marginLeft: "33px" }}>
-                                        <TextArea rows={5} value={studentData.address} disabled name="address" style={{ resize: "none" }} />
+                                        <TextArea rows={5} value={studentData.address} name="address" style={{ resize: "none" }} />
                                     </Form.Item>
                                 </div>
 
                                 <div className='d-flex flex-column justify-content-start w-50'>
-                                    {/* Name */}
+                                    <Form.Item label="Student ID" style={{ marginLeft: "24px" }}>
+                                        <Input value={studentData.sid} />
+                                    </Form.Item>
                                     <Form.Item label="Fathers Name" style={{ marginLeft: "10px" }}>
-                                        <Input name="fathers_name" value={studentData.fathers_name} disabled />
+                                        <Input name="fathers_name" value={studentData.fathers_name} />
                                     </Form.Item>
                                     <div className='d-flex gap-3' style={{ marginLeft: "59px" }}>
                                         <Form.Item label="DOB" className='d-flex' >
-                                            <Input disabled value={studentData.dob} />
+                                            <Input value={studentData.dob} />
                                         </Form.Item>
-                                        {/* Age */}
                                         <Form.Item label="Age" className='d-flex '  >
-                                            <InputNumber value={studentData.age} disabled />
+                                            <InputNumber value={studentData.age} />
                                         </Form.Item>
                                     </div>
-                                    {/* Email */}
                                     <Form.Item label="Email" style={{ marginLeft: "57px" }}>
-                                        <Input disabled value={studentData.email} />
+                                        <Input value={studentData.email} />
                                     </Form.Item>
                                     <Form.Item label="Course" style={{ marginLeft: "53px" }}>
-                                        <Input disabled value={studentData.course_name} />
+                                        <Input value={studentData.course_name} />
                                     </Form.Item>
                                     <Form.Item label="Class Preference">
-                                        <Input disabled value={studentData.classes_preferred} />
+                                        <Input value={studentData.classes_preferred} />
                                     </Form.Item>
                                     <div className="d-flex gap-3">
                                         <FormItem label="Course Fees" style={{ marginLeft: "28px" }}>
-                                            <Input disabled value="10000" style={{ color: "green" }} />
+                                            <Input value="10000" style={{ color: "green" }} />
                                         </FormItem>
                                         <FormItem label="Amount">
-                                            <Input value={studentData.amount_paid} disabled />
+                                            <Input value={studentData.amount_paid} />
                                         </FormItem>
                                     </div>
                                 </div>
@@ -415,9 +393,14 @@ function NewStudent() {
                                 Previous
                             </Button>
                         )}
-                        {current < steps.length - 1 && (
+                        {current < steps.length - 2 && (
                             <Button type="primary" onClick={() => next()}>
                                 Next
+                            </Button>
+                        )}
+                        {current == steps.length - 2 && (
+                            <Button type="primary" onClick={Generate_S_ID}>
+                                Preview
                             </Button>
                         )}
                         {current === steps.length - 1 && (
