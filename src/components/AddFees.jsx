@@ -48,10 +48,8 @@ function AddFees() {
 
     return (
         <>
-
             <button className="btn btn-success d-flex  align-items-center gap-2 px-3" onClick={showModal}> <BiPlus />Add</button>
-
-
+            
             <Modal centered open={open}
                 onOk={handleOk}
                 confirmLoading={confirmLoading}

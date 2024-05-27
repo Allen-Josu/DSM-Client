@@ -4,6 +4,7 @@ import { useState } from 'react';
 import FormItem from 'antd/es/form/FormItem';
 const { TextArea } = Input;
 import { Alert } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const steps = [
     {
@@ -25,6 +26,7 @@ function NewStudent() {
     const { token } = theme.useToken();
     const [current, setCurrent] = useState(0);
     const [isDisabled, setIsDisabled] = useState(false)
+    const navigate = useNavigate()
     // To store the Student Details
     const [studentData, setStudentData] = useState({
         sid: "",
@@ -103,8 +105,6 @@ function NewStudent() {
             setIsDisabled(false)
         }
     }
-    console.log(isDisabled);
-    // console.log(studentData);
 
     // To get Course details of the Student
     const SelectionCourse = (value) => {
@@ -190,6 +190,7 @@ function NewStudent() {
         e.preventDefault()
         // To clear the values of already registered Student
         ResetData()
+        navigate("/student-details")
     }
 
     const next = () => {
