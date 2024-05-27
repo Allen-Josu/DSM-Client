@@ -3,6 +3,7 @@ import { Button, Steps, theme, DatePicker, Form, Input, InputNumber, Radio, Sele
 import { useState } from 'react';
 import FormItem from 'antd/es/form/FormItem';
 const { TextArea } = Input;
+import { Alert } from 'antd';
 
 const steps = [
     {
@@ -23,6 +24,7 @@ const steps = [
 function NewStudent() {
     const { token } = theme.useToken();
     const [current, setCurrent] = useState(0);
+    const [isDisabled, setIsDisabled] = useState(false)
     // To store the Student Details
     const [studentData, setStudentData] = useState({
         sid: "",
@@ -44,9 +46,65 @@ function NewStudent() {
     // To Validate the Student Details and store the data
     const Validate = (e) => {
         const { name, value } = e.target
-        setStudentData({ ...studentData, [name]: value })
+        const checkName = /^[a-zA-Z\s]+$/
+        const checkMobile = /^\d{10}$/
+        const checkMail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        // const checkAddress = /^\d+\s[A-Za-z\s]+,\s[A-Za-z\s]+,\s[A-Za-z]{2}\s\d{5}$/
+        const checkAmount = /^\$?\d{1,5}(,\d{3})*$/
+
+        if (name == "name" || name == "fathers_name" || name == "mothers_name") {
+            if (checkName.test(value)) {
+                setStudentData({ ...studentData, [name]: value })
+                setIsDisabled(false)
+            } else {
+                setStudentData({ ...studentData, [name]: value })
+                setIsDisabled(true)
+            }
+        }
+        if (name == "mobile") {
+            if (checkMobile.test(value)) {
+                setStudentData({ ...studentData, [name]: value })
+                setIsDisabled(false)
+            }
+            else {
+                setStudentData({ ...studentData, [name]: value })
+                setIsDisabled(true)
+            }
+        }
+        if (name == "email") {
+            if (checkMail.test(value)) {
+                setStudentData({ ...studentData, [name]: value })
+                setIsDisabled(false)
+            }
+            else {
+                setStudentData({ ...studentData, [name]: value })
+                setIsDisabled(true)
+            }
+        }
+        if (name == "gender") {
+            setStudentData({ ...studentData, [name]: value })
+        }
+        if (name == "address") {
+            setStudentData({ ...studentData, [name]: value })
+            setIsDisabled(false)
+        }
+        if (name == "amount_paid") {
+            if (checkAmount.test(value)) {
+                setStudentData({ ...studentData, [name]: value })
+                setIsDisabled(false)
+            }
+            else {
+                setStudentData({ ...studentData, [name]: value })
+                setIsDisabled(true)
+            }
+        }
+        if (value == "") {
+            setStudentData({ ...studentData, [name]: value })
+            setIsDisabled(false)
+        }
     }
-    console.log(studentData);
+    console.log(isDisabled);
+    // console.log(studentData);
 
     // To get Course details of the Student
     const SelectionCourse = (value) => {
@@ -131,22 +189,7 @@ function NewStudent() {
     const handleSubmit = (e) => {
         e.preventDefault()
         // To clear the values of already registered Student
-        setStudentData({
-            sid: "",
-            name: "",
-            fathers_name: "",
-            mothers_name: "",
-            dob: "",
-            gender: "",
-            email: "",
-            mobile: "",
-            address: "",
-            course_name: "",
-            classes_preferred: "",
-            course_fees: "",
-            amount_paid: "",
-            age: "",
-        })
+        ResetData()
     }
 
     const next = () => {
@@ -174,8 +217,13 @@ function NewStudent() {
 
     return (
         <>
-
-            <Breadcrump current={["Dashboard", "Student", "Register-Student"]} />
+            <div className="d-flex justify-content-between mt-4">
+                <Breadcrump current={["Dashboard", "Student", "Register-Student"]} />
+                {
+                    isDisabled &&
+                    <Alert message="Please Fill the form Correctly" type="error" className='w-50 fs-6 px-4' style={{ letterSpacing: "1.5px" }} />
+                }
+            </div>
 
             <div className='mt-5'>
                 <h2 style={{ letterSpacing: "5px" }}>Student Registration</h2>
@@ -197,7 +245,7 @@ function NewStudent() {
                                     <div className='d-flex flex-column justify-content-start w-50'>
                                         {/* Name */}
                                         <Form.Item label="Name" name="name" style={{ marginLeft: "50px" }} >
-                                            <Input name="name" value={"" || studentData.name} rules={[{ required: true }]} onChange={(e) => { Validate(e) }} />
+                                            <Input name="name" value={"" || studentData.name} onChange={(e) => { Validate(e) }} />
                                         </Form.Item>
                                         {/* Mother'sName */}
                                         <Form.Item label="Mothers Name" >
@@ -394,12 +442,12 @@ function NewStudent() {
                             </Button>
                         )}
                         {current < steps.length - 2 && (
-                            <Button type="primary" onClick={() => next()}>
+                            <Button type="primary" disabled={isDisabled} onClick={() => next()}>
                                 Next
                             </Button>
                         )}
                         {current == steps.length - 2 && (
-                            <Button type="primary" onClick={Generate_S_ID}>
+                            <Button type="primary" disabled={isDisabled} onClick={Generate_S_ID}>
                                 Preview
                             </Button>
                         )}
@@ -416,6 +464,8 @@ function NewStudent() {
 
                     </div>
                 </div>
+
+
             </div >
         </>
     )
