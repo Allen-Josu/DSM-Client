@@ -143,31 +143,34 @@ function NewTraining() {
                         </Form.Item>
                     </div>
 
+                    {
+                        trainingData.students.length > 0 &&
+                        <div style={{ maxHeight: "250px", overflowY: "auto", scrollBehavior: "smooth" }}>
+                            <Table striped bordered hover >
+                                <thead className="text-center">
+                                    <tr>
+                                        <th>Sl No</th>
+                                        <th>Student Id</th>
+                                        <th>Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-center"  >
+                                    {
+                                        trainingData.students.map((items, sl_no) => (
+                                            <tr>
+                                                <td>{sl_no + 1}</td>
+                                                <td>{items.student_id}</td>
+                                                <td>{items.student_name}</td>
+                                                <td className="d-flex justify-content-center"><Button danger className="d-flex align-items-center gap-2 px-3" onClick={() => { DeleteStudentDetails(items.student_id) }}><BiTrash /> Delete</Button></td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </Table>
+                        </div>
+                    }
 
-                    <div>
-                        <Table striped bordered hover>
-                            <thead className="text-center">
-                                <tr>
-                                    <th>Sl No</th>
-                                    <th>Student Id</th>
-                                    <th>Name</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody className="text-center " >
-                                {
-                                    trainingData.students.map((items, sl_no) => (
-                                        <tr>
-                                            <td>{sl_no + 1}</td>
-                                            <td>{items.student_id}</td>
-                                            <td>{items.student_name}</td>
-                                            <td className="d-flex justify-content-center"><Button danger className="d-flex align-items-center gap-2 px-3" onClick={() => { DeleteStudentDetails(items.student_id) }}><BiTrash /> Delete</Button></td>
-                                        </tr>
-                                    ))
-                                }
-                            </tbody>
-                        </Table>
-                    </div>
                 </Box>
             </Modal >
         </>
