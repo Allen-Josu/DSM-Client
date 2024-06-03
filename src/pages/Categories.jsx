@@ -18,7 +18,7 @@ function Categories() {
 
                 <div className="d-flex justify-content-between align-items-center mb-2">
                     <h2 style={{ letterSpacing: "5px" }}>Categories</h2>
-                    <button className="btn btn-success me-5 d-flex gap-2 px-3 align-items-center"><BiPlus />Add</button>
+                    <Button className="me-5 d-flex gap-2 px-3 align-items-center"><BiPlus />Add</Button>
                 </div>
 
                 {/* Course Details */}

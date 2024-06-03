@@ -18,9 +18,9 @@ function SideBar() {
         </div>
         <div className="menu-list p-3">
 
-          <Link to="/dashboard" className="item">
+          {/* <Link to="/dashboard" className="item">
             <BiHome className='icon' /> Dashboard
-          </Link>
+          </Link> */}
 
           <Link to="/student" className="item">
             <BiSolidGraduation className='icon' /> Student
@@ -37,14 +37,14 @@ function SideBar() {
           <Link to="/categories" className="item">
             <BiCategory className='icon' /> Categories
           </Link>
-
+          {/* 
           <Link to="/reports" className="item">
             <BiPaperPlane className='icon' /> Reports
-          </Link>
-
+          </Link> */}
+          {/* 
           <Link to="/profile" className="item">
             <BiUser className='icon' /> Profile
-          </Link>
+          </Link> */}
 
           <a onClick={Logout} className="item">
             <BiLogOut className='icon' /> Logout
