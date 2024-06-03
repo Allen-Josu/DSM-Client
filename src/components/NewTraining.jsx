@@ -29,7 +29,6 @@ function NewTraining() {
     };
 
     const handleOk = () => {
-
         setConfirmLoading(true);
         setTimeout(() => {
             setOpen(false);
@@ -44,7 +43,6 @@ function NewTraining() {
             students: [
             ]
         })
-
     };
 
     const handleCancel = () => {
@@ -63,8 +61,6 @@ function NewTraining() {
     const onChange = (date, dateString) => {
         setTrainingData({ ...trainingData, date: dateString })
     };
-
-
 
 
     const handleInputChange = (e) => {

@@ -8,6 +8,16 @@ import { Form, Input } from 'antd';
 function AddFees() {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
+    const [isStudent, setIsStudent] = useState(false)
+
+
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent default Enter key behavior
+            console.log("Enter key is Pressed");
+            setIsStudent(true)
+        }
+    };
 
     //Ant Form
     // const [form] = Form.useForm();
@@ -49,7 +59,7 @@ function AddFees() {
     return (
         <>
             <button className="btn btn-success d-flex  align-items-center gap-2 px-3" onClick={showModal}> <BiPlus />Add</button>
-            
+
             <Modal centered open={open}
                 onOk={handleOk}
                 confirmLoading={confirmLoading}
@@ -65,28 +75,34 @@ function AddFees() {
                         onValuesChange={onFormLayoutChange}
                     >
                         <Form.Item label="Student ID">
-                            <Input placeholder="eg : 1001" />
+                            <Input placeholder="eg : 1001" onKeyPress={handleKeyPress} />
                         </Form.Item>
-                        <Form.Item label="Name">
-                            <Input value="Allen Joseph Joy" disabled style={{ color: "black" }} />
-                        </Form.Item>
-                        <Form.Item label="Course">
-                            <Input value="Four Wheelers" disabled style={{ color: "black" }} />
-                        </Form.Item>
-                        <Form.Item label="Fees Pending">
-                            <Input value="5500" disabled style={{ color: "red" }} />
-                        </Form.Item>
-                        <Form.Item label="Purpose">
-                            <Select placeholder="Select a Course">
-                                <Select.Option value="Course Fees">Course Fees</Select.Option>
-                                <Select.Option value="Course Fees">Additional Fees</Select.Option>
-                                <Select.Option value="Course Fees">Reattempt Fees</Select.Option>
-                                <Select.Option value="Course Fees">Trail Fees</Select.Option>
-                            </Select>
-                        </Form.Item>
-                        <Form.Item label="Amount">
-                            <Input />
-                        </Form.Item>
+                        {
+                            isStudent &&
+                            <div>
+                                <Form.Item label="Name">
+                                    <Input value="Allen Joseph Joy" disabled style={{ color: "black" }} />
+                                </Form.Item>
+                                <Form.Item label="Course">
+                                    <Input value="Four Wheelers" disabled style={{ color: "black" }} />
+                                </Form.Item>
+                                <Form.Item label="Fees Pending">
+                                    <Input value="5500" disabled style={{ color: "red" }} />
+                                </Form.Item>
+                                <Form.Item label="Purpose">
+                                    <Select placeholder="Select a Course">
+                                        <Select.Option value="Course Fees">Course Fees</Select.Option>
+                                        <Select.Option value="Additional Fees">Additional Fees</Select.Option>
+                                        <Select.Option value="Reattempt Fees">Reattempt Fees</Select.Option>
+                                        <Select.Option value="Trail Fees">Trail Fees</Select.Option>
+                                    </Select>
+                                </Form.Item>
+                                <Form.Item label="Amount">
+                                    <Input />
+                                </Form.Item>
+                            </div>
+                        }
+
                     </Form>
                 </Box>
             </Modal >
