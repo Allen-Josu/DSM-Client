@@ -9,10 +9,10 @@ import Training from './pages/Training';
 import Fees from './pages/Fees';
 import SideBar from './components/SideBar';
 import Login from './pages/Login';
-import NewStudent from "./components/NewStudent"
 import Categories from './pages/Categories';
 import Profile from './pages/Profile';
 import DemoForm from './components/DemoForm';
+import RegisterStudent from './pages/RegisterStudent';
 // import PageNotFound from './pages/PageNotFound';
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path='/student' element={<Student />} />
                 <Route path='/student-details' element={<StudentDetails />} />
-                <Route path="/register-student" element={<NewStudent />} />
+                <Route path="/register-student" element={<RegisterStudent />} />
                 <Route path="/training" element={<Training />} />
                 <Route path='/fees' element={<Fees />} />
                 <Route path="/categories" element={<Categories />} />

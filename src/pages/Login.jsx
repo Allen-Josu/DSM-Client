@@ -24,8 +24,13 @@ function Login() {
     //On Form Submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert("Data uploaded Successfully")
-        navigate("/dashboard")
+        if (data.username == "admin" && data.password == "admin") {
+            alert("Admin")
+            navigate("/student")
+        }
+        else {
+            navigate("/student")
+        }
     }
 
     return (

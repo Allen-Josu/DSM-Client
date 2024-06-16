@@ -7,11 +7,11 @@ import { Form, Input } from 'antd';
 import { DatePicker } from 'antd';
 import Table from 'react-bootstrap/Table';
 import { Button } from 'antd';
+import { upload_new_training } from "../services/allAPI";
 
 function NewTraining() {
 
     const [open, setOpen] = useState(false);
-    const [confirmLoading, setConfirmLoading] = useState(false);
     const [input, setInput] = useState("")
     const [trainingData, setTrainingData] = useState({
         training_ID: "T24/1001",
@@ -28,40 +28,35 @@ function NewTraining() {
         setOpen(true);
     };
 
-    const handleOk = () => {
-        setConfirmLoading(true);
-        setTimeout(() => {
-            setOpen(false);
-            setConfirmLoading(false);
-        }, 2000);
-        alert("Training Details Uploadedd Successfully")
-        setTrainingData({
-            training_ID: "T24/1001",
-            trainer: "",
-            vehicle: "",
-            date: "",
-            students: [
-            ]
-        })
+    const handleOk = async () => {
+        if (trainingData.students.length > 0 && trainingData.trainer && trainingData.date && trainingData.vehicle) {
+ 
+            const response = await upload_new_training(trainingData)
+            console.log(response);
+            if (200 <= response.status < 300) {
+                alert("Training Details Uploadedd Successfully")
+                handleReset()
+                window.location.reload()
+            }
+            else {
+                alert("An error has been occured")
+            }
+
+        }
+        else {
+            alert("Fill the form")
+        }
     };
 
     const handleCancel = () => {
         setOpen(false);
-        setTrainingData({
-            training_ID: "T24/1001",
-            trainer: "",
-            vehicle: "",
-            date: "",
-            students: [
-            ]
-        })
-
+        handleReset()
     };
 
     const onChange = (date, dateString) => {
         setTrainingData({ ...trainingData, date: dateString })
-    };
 
+    };
 
     const handleInputChange = (e) => {
         setInput(e.target.value)
@@ -70,7 +65,6 @@ function NewTraining() {
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
             event.preventDefault(); // Prevent default Enter key behavior
-            console.log("Enter key is Pressed");
             GetStudentDetails();
         }
     };
@@ -96,13 +90,23 @@ function NewTraining() {
         setTrainingData(prevData => ({ ...prevData, students: prevData.students.filter(items => items.student_id !== id) }))
     }
 
+    const handleReset = () => {
+        setTrainingData({
+            training_ID: "T24/1001",
+            trainer: "",
+            vehicle: "",
+            date: "",
+            students: [
+            ]
+        })
+    }
+
     return (
         <>
             <button className="btn btn-success px-3 d-flex align-items-center gap-3" onClick={showModal}><BiPlus />Add</button>
 
             <Modal centered open={open}
                 onOk={handleOk}
-                confirmLoading={confirmLoading}
                 onCancel={handleCancel} >
                 <p className="fs-5" style={{ letterSpacing: "5px" }}>Training</p>
                 <Box className="w-100 mt-3">
@@ -111,7 +115,7 @@ function NewTraining() {
                         <Input disabled value={trainingData.training_ID} style={{ color: "grey" }} />
                     </Form.Item>
                     <Form.Item label="Trainer">
-                        <Select placeholder="Select Trainer" onChange={(trainer) => {
+                        <Select placeholder="Select Trainer" value={trainingData.trainer || ""} onChange={(trainer) => {
                             setTrainingData({ ...trainingData, trainer })
                         }}>
                             <Select.Option value="Kiran">Kiran</Select.Option>
@@ -121,7 +125,7 @@ function NewTraining() {
                         </Select>
                     </Form.Item>
                     <Form.Item label="Vehicle">
-                        <Select placeholder="Select Vehicle" onChange={(vehicle) => {
+                        <Select placeholder="Select Vehicle" value={"" || trainingData.vehicle} onChange={(vehicle) => {
                             setTrainingData({ ...trainingData, vehicle })
                         }}>
                             <Select.Option value="KL 32 M 9339 (Celerio)">KL 32 M 9339 (Celerio)</Select.Option>
@@ -132,7 +136,7 @@ function NewTraining() {
                     </Form.Item>
                     <div className="d-flex gap-2">
                         <Form.Item label="Date">
-                            <DatePicker placeholder="YYYY-MM-DD" onChange={onChange} />
+                            <DatePicker placeholder="YYYY-MM-DD" dateString={""} onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="Student ID"  >
                             <Input placeholder="eg : 1001" onChange={handleInputChange} value={input || ""} onKeyPress={handleKeyPress} />
