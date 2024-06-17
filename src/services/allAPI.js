@@ -12,3 +12,9 @@ export const upload_new_training = async (reqBody) => {
 export const upload_new_fees = async (reqBody) => {
     return await common_API("POST", `${base_URL}/fees`, reqBody, "");
 };
+
+export const get_student_details = async (reqBody) => {
+    const response =  await common_API("GET", `${base_URL}/students`, reqBody, "");
+    return response;
+
+};

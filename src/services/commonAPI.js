@@ -8,11 +8,12 @@ export const common_API = async (httpRequest, url, reqBody, reqHeader) => {
         header: reqHeader
             ? reqHeader
             : {
-                "Content-Type": "application/json",
-            },
+                  "Content-Type": "application/json",
+              },
     };
     return await axios(reqConfig)
         .then((result) => {
+            console.log(result);
             return result;
         })
         .catch((error) => {

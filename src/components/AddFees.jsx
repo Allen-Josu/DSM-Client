@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Modal, Select } from 'antd';
 import { Box } from "@mui/material";
 import { Form, Input } from 'antd';
-import { upload_new_fees } from "../services/allAPI";
+import { upload_new_fees, get_student_details } from "../services/allAPI";
 
 
 function AddFees() {
@@ -11,11 +11,12 @@ function AddFees() {
     const [isStudent, setIsStudent] = useState(false)
     const [formLayout, setFormLayout] = useState('horizontal');
     const [feesDetails, setFeesDetails] = useState({
-        sid: "",
+        sid: 0,
         fees_purpose: "",
         fees_paid: "",
         bill_no: ""
     })
+
 
     const formItemLayout =
         formLayout === 'horizontal'
@@ -29,28 +30,77 @@ function AddFees() {
             }
             : null;
 
-    const studentDetails = {
-        username: "Allen",
-        course_selected: "Four Wheelers",
-        fees_pending: "1200"
-    }
 
-    const generateBill = async () => {
-        const latest_bill = 0
-        setFeesDetails({ ...feesDetails, bill_no: latest_bill + 1 })
-    }
+    // const generateBill = async () => {
+    //     const latest_bill = 0
+    //     setFeesDetails({ ...feesDetails, bill_no: latest_bill + 1 })
+    // }
+
+    // const handleKeyPress = async (event) => {
+    //     if (event.key === 'Enter') {
+    //         if (feesDetails.sid) {
+    //             event.preventDefault();
+    //             const response = await get_student_details({ sid: feesDetails.sid })
+    //             console.log(response);
+    //             if (response.status > 199 && response.status < 300) {
+    //                 console.error('succesfull');
+    //                 generateBill()
+    //                 setIsStudent(true)
+    //             }
+    //             else {
+    //                 alert("No such Student Found")
+    //                 console.error('Fetched data is not in the expected format:', response);
+    //             }
+    //         } else {
+    //             alert("Enter the student Id")
+    //             console.error('Error fetching users');
+    //         }
+    //     }
+    // };
+
+    const generateBill = () => {
+        setFeesDetails(prevFeesDetails => ({
+            ...prevFeesDetails,
+            bill_no: (prevFeesDetails.bill_no || 0) + 1
+        }));
+    };
+
+    console.log(feesDetails.sid);
 
     const handleKeyPress = async (event) => {
         if (event.key === 'Enter') {
             if (feesDetails.sid) {
                 event.preventDefault();
-                generateBill()
-                setIsStudent(true)
+                try {
+                    const response = await get_student_details({ sid: feesDetails.sid });
+                    console.log(response);
+
+                    if (response.status >= 200 && response.status < 300) {
+                        if (response.data) {
+                            console.log('Successful');
+                            generateBill();
+                            setIsStudent(true);
+                        } else {
+                            alert("No student data found");
+                            console.error('Fetched data is null:', response);
+                        }
+                    } else {
+                        alert("No such student found");
+                        console.error('Fetched data is not in the expected format:', response);
+                    }
+                } catch (error) {
+                    console.error('Error fetching student details:', error);
+                    alert("An error occurred while fetching student details");
+                }
             } else {
-                alert("Enter the student Id")
+                alert("Enter the student ID");
+                console.error('Student ID is missing');
             }
         }
     };
+
+
+
 
     const onFormLayoutChange = ({ layout }) => {
         setFormLayout(layout);
@@ -70,7 +120,7 @@ function AddFees() {
             const fees_response = await upload_new_fees(feesDetails)
             if (200 <= fees_response < 300) {
                 alert("Fees Uploaded Suceesfully")
-                setOpen(false)
+                handleCancel()
             }
             else {
                 alert("An error has been Occured")
@@ -123,13 +173,13 @@ function AddFees() {
                                     <Input value={"" || feesDetails.bill_no} disabled style={{ color: "black" }} />
                                 </Form.Item>
                                 <Form.Item label="Name">
-                                    <Input value={"" || studentDetails.username} disabled style={{ color: "black" }} />
+                                    <Input value={"" || ""} disabled style={{ color: "black" }} />
                                 </Form.Item>
                                 <Form.Item label="Course">
-                                    <Input value={"" || studentDetails.course_selected} disabled style={{ color: "black" }} />
+                                    <Input value={"" || ""} disabled style={{ color: "black" }} />
                                 </Form.Item>
                                 <Form.Item label="Fees Pending">
-                                    <Input value={"" || studentDetails.fees_pending} disabled style={{ color: "red" }} />
+                                    <Input value={"" || ""} disabled style={{ color: "red" }} />
                                 </Form.Item>
                                 <Form.Item label="Purpose">
                                     <Select placeholder="Select a Course" value={"" || feesDetails.fees_purpose} onChange={(value) => { setFeesDetails({ ...feesDetails, fees_purpose: value }) }}>
