@@ -61,9 +61,14 @@ function AddFees() {
         if (event.key === 'Enter') {
             if (feesDetails.sid) {
                 event.preventDefault();
+                //Get not working
                 const student = await get_student_details({ sid: feesDetails.sid })
-                console.log(student.status);
-                setIsStudent(true)
+                if (199 < student.status < 300) {
+                    setIsStudent(true)
+                }
+                else {
+                    console.log("No such student Found");
+                }
             } else {
                 alert("Enter the student ID");
             }

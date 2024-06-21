@@ -72,6 +72,7 @@ function NewTraining() {
     //function to get the student based on unique Student Id(sid)
     const GetStudentDetails = async () => {
         const student_id = input
+        // GET Function not working
         const studentDetails = await get_student_details(student_id)
         if (199 < studentDetails.status < 300) {
             const student_name = studentDetails.userName
