@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Modal, Select } from 'antd';
 import { Box } from "@mui/material";
 import { Form, Input } from 'antd';
-import { upload_new_fees, get_student_details } from "../services/allAPI";
+import { get_student_details, upload_new_fees } from "../services/allAPI";
 
 
 function AddFees() {
@@ -11,10 +11,10 @@ function AddFees() {
     const [isStudent, setIsStudent] = useState(false)
     const [formLayout, setFormLayout] = useState('horizontal');
     const [feesDetails, setFeesDetails] = useState({
-        sid: 0,
+        sid: "",
         fees_purpose: "",
         fees_paid: "",
-        bill_no: ""
+        bill_no: "1001"
     })
 
     const formItemLayout =
@@ -49,41 +49,23 @@ function AddFees() {
     }
 
     //function to generate a bill no
-    const generateBill = () => {
-        setFeesDetails(prevFeesDetails => ({
-            ...prevFeesDetails,
-            bill_no: (prevFeesDetails.bill_no || 0) + 1
-        }));
-    };
+    // const generateBill = () => {
+    //     setFeesDetails(prevFeesDetails => ({
+    //         ...prevFeesDetails,
+    //         bill_no: (prevFeesDetails.bill_no || 0) + 1
+    //     }));
+    // };
 
     // function to check the student id when pressing enter key
     const handleKeyPress = async (event) => {
         if (event.key === 'Enter') {
             if (feesDetails.sid) {
                 event.preventDefault();
-                try {
-                    const response = await get_student_details({ sid: feesDetails.sid });
-                    console.log(response);
-                    if (response.status >= 200 && response.status < 300) {
-                        if (response.data) {
-                            console.log('Successful');
-                            generateBill();
-                            setIsStudent(true);
-                        } else {
-                            alert("No student data found");
-                            console.error('Fetched data is null:', response);
-                        }
-                    } else {
-                        alert("No such student found");
-                        console.error('Fetched data is not in the expected format:', response);
-                    }
-                } catch (error) {
-                    console.error('Error fetching student details:', error);
-                    alert("An error occurred while fetching student details");
-                }
+                const student = await get_student_details({ sid: feesDetails.sid })
+                console.log(student.status);
+                setIsStudent(true)
             } else {
                 alert("Enter the student ID");
-                console.error('Student ID is missing');
             }
         }
     };

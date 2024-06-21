@@ -3,7 +3,7 @@ import { Button, DatePicker, Form, Input, InputNumber, Radio, Select, Steps, the
 import TextArea from 'antd/es/input/TextArea';
 import FormItem from 'antd/es/form/FormItem';
 import dayjs from 'dayjs';
-import { upload_new_student } from '../services/allAPI';
+import { upload_new_fees, upload_new_student } from '../services/allAPI';
 import { useNavigate } from 'react-router-dom';
 
 const steps = [
@@ -39,6 +39,12 @@ function StudentForm() {
         total_class: "",
         fees_paid: "",
         age: ""
+    })
+    const [feesDetails, setFeesDetails] = useState({
+        sid: "1001",
+        fees_purpose: "Course Fees",
+        fees_paid: "",
+        bill_no: "TH/1001"
     })
 
     const navigate = useNavigate()
@@ -87,6 +93,9 @@ function StudentForm() {
     const handleChange = (e) => {
         const { name, value } = e.target
         setStudentData({ ...studentData, [name]: value })
+        if (name == "fees_paid") {
+            setFeesDetails({ ...feesDetails, fees_paid: value })
+        }
     }
 
     // function to get date of birth
@@ -112,13 +121,19 @@ function StudentForm() {
         e.preventDefault()
         const student_response = await upload_new_student(studentData)
         if (200 <= student_response.status < 300) {
-            alert("Student Registered Successfully")
-            handleReset()
-            navigate("/student-details")
-
+            const response = await upload_new_fees(feesDetails)
+            console.log(response);
+            if (199 < response.status < 300) {
+                alert("Student Registered Successfully")
+                handleReset()
+                navigate("/student-details")
+            }
+            else {
+                console.log("Fees no uploaded");
+            }
         }
         else {
-            alert(student_response.message)
+            console.log("student not uploaded");
         }
     }
 

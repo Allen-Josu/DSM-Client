@@ -7,7 +7,7 @@ import { Form, Input } from 'antd';
 import { DatePicker } from 'antd';
 import Table from 'react-bootstrap/Table';
 import { Button } from 'antd';
-import { upload_new_training } from "../services/allAPI";
+import { get_student_details, upload_new_training } from "../services/allAPI";
 
 function NewTraining() {
 
@@ -28,9 +28,14 @@ function NewTraining() {
         setOpen(true);
     };
 
+    const handleCancel = () => {
+        setOpen(false);
+        handleReset()
+    };
+
+    //function to submit the form
     const handleOk = async () => {
         if (trainingData.students.length > 0 && trainingData.trainer && trainingData.date && trainingData.vehicle) {
- 
             const response = await upload_new_training(trainingData)
             console.log(response);
             if (200 <= response.status < 300) {
@@ -41,38 +46,35 @@ function NewTraining() {
             else {
                 alert("An error has been occured")
             }
-
         }
         else {
             alert("Fill the form")
         }
     };
 
-    const handleCancel = () => {
-        setOpen(false);
-        handleReset()
-    };
-
+    // functions to add data on Change
     const onChange = (date, dateString) => {
         setTrainingData({ ...trainingData, date: dateString })
-
     };
 
     const handleInputChange = (e) => {
         setInput(e.target.value)
     }
 
+    //function to GetStudentDetails when pressing Enter key
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent default Enter key behavior
+            event.preventDefault();
             GetStudentDetails();
         }
     };
 
-    const GetStudentDetails = () => {
+    //function to get the student based on unique Student Id(sid)
+    const GetStudentDetails = async () => {
         const student_id = input
-        const student_name = "Allen Joseph Joy"
-        if (student_name) {
+        const studentDetails = await get_student_details(student_id)
+        if (199 < studentDetails.status < 300) {
+            const student_name = studentDetails.userName
             const new_student = { student_id, student_name }
             setTrainingData(prevData => ({
                 ...prevData, students: [...prevData.students, new_student]
@@ -84,12 +86,13 @@ function NewTraining() {
         }
     }
 
-
+    //function to delete student from the table
     const DeleteStudentDetails = (id) => {
         console.log(id);
         setTrainingData(prevData => ({ ...prevData, students: prevData.students.filter(items => items.student_id !== id) }))
     }
 
+    ///function to reset the training Data
     const handleReset = () => {
         setTrainingData({
             training_ID: "T24/1001",

@@ -14,7 +14,5 @@ export const upload_new_fees = async (reqBody) => {
 };
 
 export const get_student_details = async (reqBody) => {
-    const response =  await common_API("GET", `${base_URL}/students`, reqBody, "");
-    return response;
-
+    return await common_API("GET", `${base_URL}/students`, reqBody, "");
 };
