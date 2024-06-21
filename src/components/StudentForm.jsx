@@ -21,6 +21,7 @@ const steps = [
     },
 ];
 
+
 function StudentForm() {
     const { token } = theme.useToken();
     const [current, setCurrent] = useState(0);
@@ -39,7 +40,18 @@ function StudentForm() {
         fees_paid: "",
         age: ""
     })
+
     const navigate = useNavigate()
+
+    const contentStyle = {
+        lineHeight: '260px',
+        textAlign: 'center',
+        color: token.colorTextTertiary,
+        backgroundColor: token.colorFillAlter,
+        borderRadius: token.borderRadiusLG,
+        border: `1px dashed ${token.colorBorder}`,
+        marginTop: 16,
+    };
 
     const isStepValid = () => {
         switch (current) {
@@ -54,22 +66,6 @@ function StudentForm() {
                 return true;
         }
     }
-
-    const handleDateChange = (date, dateString) => {
-        const age = calculateAge(date);
-        setStudentData({ ...studentData, dob: dateString, age });
-    };
-
-    const calculateAge = (date) => {
-        const today = dayjs();
-        const birthDate = dayjs(date);
-        let age = today.year() - birthDate.year();
-        const monthDiff = today.month() - birthDate.month();
-        if (monthDiff < 0 || (monthDiff === 0 && today.date() < birthDate.date())) {
-            age--;
-        }
-        return age;
-    };
 
     const next = () => {
         if (isStepValid()) {
@@ -87,22 +83,31 @@ function StudentForm() {
         key: item.title,
         title: item.title,
     }));
-    const contentStyle = {
-        lineHeight: '260px',
-        textAlign: 'center',
-        color: token.colorTextTertiary,
-        backgroundColor: token.colorFillAlter,
-        borderRadius: token.borderRadiusLG,
-        border: `1px dashed ${token.colorBorder}`,
-        marginTop: 16,
-    };
-
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setStudentData({ ...studentData, [name]: value })
     }
 
+    // function to get date of birth
+    const handleDateChange = (date, dateString) => {
+        const age = calculateAge(date);
+        setStudentData({ ...studentData, dob: dateString, age });
+    };
+
+    // function to calculate age based on date of birth
+    const calculateAge = (date) => {
+        const today = dayjs();
+        const birthDate = dayjs(date);
+        let age = today.year() - birthDate.year();
+        const monthDiff = today.month() - birthDate.month();
+        if (monthDiff < 0 || (monthDiff === 0 && today.date() < birthDate.date())) {
+            age--;
+        }
+        return age;
+    };
+
+    // function to submit the form
     const handleSubmit = async (e) => {
         e.preventDefault()
         const student_response = await upload_new_student(studentData)
@@ -110,14 +115,14 @@ function StudentForm() {
             alert("Student Registered Successfully")
             handleReset()
             navigate("/student-details")
+
         }
         else {
-            console.log(student_response.data);
+            alert(student_response.message)
         }
-
-
     }
 
+    // function to reset the form
     const handleReset = () => {
         setStudentData({
             username: "",

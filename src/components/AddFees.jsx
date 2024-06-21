@@ -17,7 +17,6 @@ function AddFees() {
         bill_no: ""
     })
 
-
     const formItemLayout =
         formLayout === 'horizontal'
             ? {
@@ -30,34 +29,26 @@ function AddFees() {
             }
             : null;
 
+    const onFormLayoutChange = ({ layout }) => {
+        setFormLayout(layout);
+    };
 
-    // const generateBill = async () => {
-    //     const latest_bill = 0
-    //     setFeesDetails({ ...feesDetails, bill_no: latest_bill + 1 })
-    // }
+    const showModal = () => {
+        setOpen(true);
+    };
 
-    // const handleKeyPress = async (event) => {
-    //     if (event.key === 'Enter') {
-    //         if (feesDetails.sid) {
-    //             event.preventDefault();
-    //             const response = await get_student_details({ sid: feesDetails.sid })
-    //             console.log(response);
-    //             if (response.status > 199 && response.status < 300) {
-    //                 console.error('succesfull');
-    //                 generateBill()
-    //                 setIsStudent(true)
-    //             }
-    //             else {
-    //                 alert("No such Student Found")
-    //                 console.error('Fetched data is not in the expected format:', response);
-    //             }
-    //         } else {
-    //             alert("Enter the student Id")
-    //             console.error('Error fetching users');
-    //         }
-    //     }
-    // };
+    const handleCancel = () => {
+        handleReset()
+        setOpen(false);
+        setIsStudent(false)
+    };
 
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setFeesDetails({ ...feesDetails, [name]: value })
+    }
+
+    //function to generate a bill no
     const generateBill = () => {
         setFeesDetails(prevFeesDetails => ({
             ...prevFeesDetails,
@@ -65,8 +56,7 @@ function AddFees() {
         }));
     };
 
-    console.log(feesDetails.sid);
-
+    // function to check the student id when pressing enter key
     const handleKeyPress = async (event) => {
         if (event.key === 'Enter') {
             if (feesDetails.sid) {
@@ -74,7 +64,6 @@ function AddFees() {
                 try {
                     const response = await get_student_details({ sid: feesDetails.sid });
                     console.log(response);
-
                     if (response.status >= 200 && response.status < 300) {
                         if (response.data) {
                             console.log('Successful');
@@ -99,22 +88,7 @@ function AddFees() {
         }
     };
 
-
-
-
-    const onFormLayoutChange = ({ layout }) => {
-        setFormLayout(layout);
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setFeesDetails({ ...feesDetails, [name]: value })
-    }
-
-    const showModal = () => {
-        setOpen(true);
-    };
-
+    // function to submit the form
     const handleOk = async () => {
         if (feesDetails.fees_paid && feesDetails.fees_purpose) {
             const fees_response = await upload_new_fees(feesDetails)
@@ -131,12 +105,7 @@ function AddFees() {
         }
     };
 
-    const handleCancel = () => {
-        handleReset()
-        setOpen(false);
-        setIsStudent(false)
-    };
-
+    // function to reset the form
     const handleReset = () => {
         setFeesDetails({
             sid: "",
