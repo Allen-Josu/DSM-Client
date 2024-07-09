@@ -3,15 +3,16 @@ import { useState } from "react";
 import { Modal, Select } from 'antd';
 import { Box } from "@mui/material";
 import { Form, Input } from 'antd';
-import { get_student_details, upload_new_fees } from "../services/allAPI";
+import { get_student_admission_details, upload_new_fees } from "../services/allAPI";
 
 
 function AddFees() {
     const [open, setOpen] = useState(false);
     const [isStudent, setIsStudent] = useState(false)
     const [formLayout, setFormLayout] = useState('horizontal');
+    const [studentData, setStudentData] = useState()
     const [feesDetails, setFeesDetails] = useState({
-        sid: "",
+        admission_no: null,
         fees_purpose: "",
         fees_paid: "",
         bill_no: "1001"
@@ -59,14 +60,13 @@ function AddFees() {
     // function to check the student id when pressing enter key
     const handleKeyPress = async (event) => {
         if (event.key === 'Enter') {
-            if (feesDetails.sid) {
+            if (feesDetails.admission_no) {
                 event.preventDefault();
-                //Get not working
-                const student = await get_student_details({ sid: feesDetails.sid })
-                if (199 < student.status < 300) {
-                    setIsStudent(true)
-                }
-                else {
+                const student = await get_student_admission_details(feesDetails.admission_no);
+                if (student.status >= 200 && student.status < 300) {
+                    setIsStudent(true);
+                    setStudentData(student.data)
+                } else {
                     console.log("No such student Found");
                 }
             } else {
@@ -78,6 +78,7 @@ function AddFees() {
     // function to submit the form
     const handleOk = async () => {
         if (feesDetails.fees_paid && feesDetails.fees_purpose) {
+            feesDetails.bill_no = "TN24"
             const fees_response = await upload_new_fees(feesDetails)
             if (200 <= fees_response < 300) {
                 alert("Fees Uploaded Suceesfully")
@@ -129,13 +130,13 @@ function AddFees() {
                                     <Input value={"" || feesDetails.bill_no} disabled style={{ color: "black" }} />
                                 </Form.Item>
                                 <Form.Item label="Name">
-                                    <Input value={"" || ""} disabled style={{ color: "black" }} />
+                                    <Input value={studentData.username} disabled style={{ color: "black" }} />
                                 </Form.Item>
                                 <Form.Item label="Course">
-                                    <Input value={"" || ""} disabled style={{ color: "black" }} />
+                                    <Input value={studentData.course_selected} disabled style={{ color: "black" }} />
                                 </Form.Item>
                                 <Form.Item label="Fees Pending">
-                                    <Input value={"" || ""} disabled style={{ color: "red" }} />
+                                    <Input value={10000 - studentData.fees_paid} disabled style={{ color: "red" }} />
                                 </Form.Item>
                                 <Form.Item label="Purpose">
                                     <Select placeholder="Select a Course" value={"" || feesDetails.fees_purpose} onChange={(value) => { setFeesDetails({ ...feesDetails, fees_purpose: value }) }}>

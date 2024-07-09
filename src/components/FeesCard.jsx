@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { Box, Paper } from "@mui/material"
 import { Typography } from "antd"
 import { useState } from "react";
 import { Modal } from 'antd';
 
 
-function FeesCard() {
+function FeesCard({ student }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
@@ -15,6 +16,7 @@ function FeesCard() {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+
     return (
         <>
             <Box component={Paper} elevation={16} className=" p-4 mt-5 rounded-4 " onClick={showModal} style={{ cursor: " pointer", }}>
@@ -27,10 +29,10 @@ function FeesCard() {
                         <Typography>Balance</Typography>
                     </div>
                     <div className="col-md-7 d-flex gap-2 flex-column ">
-                        <Typography>Allen Joseph Joy</Typography>
-                        <Typography>Two and Four Wheelers</Typography>
-                        <Typography>4500</Typography>
-                        <Typography className="text-danger">6500</Typography>
+                        <Typography>{student.username}</Typography>
+                        <Typography>{student.course_selected}</Typography>
+                        <Typography>{student.fees_paid}</Typography>
+                        <Typography className="text-danger">{10000 - student.fees_paid}</Typography>
                     </div>
                 </div>
             </Box>
@@ -52,12 +54,12 @@ function FeesCard() {
                         <Typography>Balance</Typography>
                     </div>
                     <div className="col-md-7 d-flex gap-2 flex-column ">
-                        <Typography>Allen Joseph Joy</Typography>
-                        <Typography ><a href="" >1001</a></Typography>
-                        <Typography>Two and Four Wheelers</Typography>
-                        <Typography>8547171373</Typography>
-                        <Typography>4500</Typography>
-                        <Typography className="text-danger">6500</Typography>
+                        <Typography>{student.username}</Typography>
+                        <Typography ><a href={`/student-details/${student.sid}`} >{student.sid}</a></Typography>
+                        <Typography>{student.course_selected}</Typography>
+                        <Typography>{student.mobile}</Typography>
+                        <Typography>{student.fees_paid}</Typography>
+                        <Typography className="text-danger">{10000 - student.fees_paid}</Typography>
                     </div>
                 </Box>
 

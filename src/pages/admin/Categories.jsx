@@ -1,7 +1,7 @@
 import { Divider } from '@mui/material';
 import Table from 'react-bootstrap/Table';
 import { BiCode, BiPlus, BiTrash } from 'react-icons/bi';
-import Breadcrump from '../components/ui/Breadcrump';
+import Breadcrump from '../../components/ui/Breadcrump';
 import { Button } from 'antd';
 
 

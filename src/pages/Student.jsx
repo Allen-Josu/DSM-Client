@@ -4,10 +4,26 @@ import Breadcrump from "../components/ui/Breadcrump";
 import SearchBar from "../components/ui/SearchBar";
 import { useNavigate } from "react-router-dom";
 
+import { useEffect, useState } from "react";
+import { get_all_student_details } from "../services/allAPI";
 
 
 function Student() {
+    const [studentData, setStudentData] = useState()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await get_all_student_details()
+                setStudentData(response.data)
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData()
+    }, [])
 
     const NewStudentPage = () => {
         navigate("/register-student")
@@ -31,8 +47,11 @@ function Student() {
 
             {/* Student Card */}
             <div className="mt-5 w-100" >
-                <StudentCard />
-                <StudentCard />
+                {
+                    studentData?.map((student, key) => (
+                        <StudentCard key={key} student={student} />
+                    ))
+                }
             </div>
         </>
     )

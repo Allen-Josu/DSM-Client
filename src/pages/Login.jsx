@@ -2,6 +2,7 @@ import { Box, Button, Paper, TextField } from "@mui/material"
 import "../style/Login.css"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { get_login_details } from "../services/allAPI";
 
 function Login() {
     const [data, setData] = useState({
@@ -13,25 +14,32 @@ function Login() {
     // Validation of Form 
     const Validate = (e) => {
         const { name, value } = e.target
-        if (name == "username") {
-            setData({ ...data, username: value })
-        }
-        else {
-            setData({ ...data, password: value })
-        }
+        setData({ ...data, [name]: value })
     }
 
     //On Form Submit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (data.username == "admin" && data.password == "admin") {
-            alert("Admin")
-            navigate("/student")
+
+        const { username, password } = data
+
+
+        const response = await get_login_details(username, password);
+
+        if (response.status >= 200 && response.status < 300) {
+            const access = response.data.access;
+            if (access === "admin") {
+                navigate("/student");
+                alert("Welcome Admin");
+            } else if (access === "employee") {
+                navigate("/student");
+                alert("Welcome Employee");
+            }
+        } else {
+            alert("Invalid username or password");
+            console.log(response);
         }
-        else {
-            navigate("/student")
-        }
-    }
+    };
 
     return (
         <>

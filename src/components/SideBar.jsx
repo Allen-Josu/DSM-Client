@@ -34,9 +34,9 @@ function SideBar() {
             <BiReceipt className='icon' /> Fees
           </Link>
 
-          {/* <Link to="/categories" className="item">
+          <Link to="/categories" className="item">
             <BiCategory className='icon' /> Categories
-          </Link> */}
+          </Link>
           
           {/* <Link to="/reports" className="item">
             <BiPaperPlane className='icon' /> Reports

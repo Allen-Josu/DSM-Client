@@ -9,7 +9,7 @@ import Training from './pages/Training';
 import Fees from './pages/Fees';
 import SideBar from './components/SideBar';
 import Login from './pages/Login';
-import Categories from './pages/Categories';
+import Categories from './pages/admin/Categories';
 import Profile from './pages/Profile';
 import DemoForm from './components/DemoForm';
 import RegisterStudent from './pages/RegisterStudent';
@@ -32,15 +32,13 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path='/student' element={<Student />} />
-                <Route path='/student-details' element={<StudentDetails />} />
+                <Route path='/student-details/:sid' element={<StudentDetails />} />
                 <Route path="/register-student" element={<RegisterStudent />} />
                 <Route path="/training" element={<Training />} />
                 <Route path='/fees' element={<Fees />} />
                 <Route path="/categories" element={<Categories />} />
                 <Route path='/reports' element={<Reports />} />
-
                 <Route path='/demo' element={<DemoForm />} />
-
               </Routes>
             </div>
           </div>

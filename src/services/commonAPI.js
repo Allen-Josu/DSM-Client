@@ -13,7 +13,6 @@ export const common_API = async (httpRequest, url, reqBody, reqHeader) => {
     };
     return await axios(reqConfig)
         .then((result) => {
-            console.log(result);
             return result;
         })
         .catch((error) => {

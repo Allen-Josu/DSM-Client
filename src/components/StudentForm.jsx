@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, DatePicker, Form, Input, InputNumber, Radio, Select, Steps, theme } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import FormItem from 'antd/es/form/FormItem';
 import dayjs from 'dayjs';
-import { upload_new_fees, upload_new_student } from '../services/allAPI';
+import { get_largest_admission_no, upload_new_fees, upload_new_student } from '../services/allAPI';
 import { useNavigate } from 'react-router-dom';
 
 const steps = [
@@ -23,10 +23,11 @@ const steps = [
 
 
 function StudentForm() {
+
     const { token } = theme.useToken();
     const [current, setCurrent] = useState(0);
     const [studentData, setStudentData] = useState({
-        sid: "1001",
+        admission_no: "",
         username: "",
         mothers_name: "",
         fathers_name: "",
@@ -40,11 +41,10 @@ function StudentForm() {
         fees_paid: "",
         age: ""
     })
+
     const [feesDetails, setFeesDetails] = useState({
-        sid: "1001",
-        fees_purpose: "Course Fees",
         fees_paid: "",
-        bill_no: "TH/1001"
+        bill_no: "TH/240701"
     })
 
     const navigate = useNavigate()
@@ -59,19 +59,22 @@ function StudentForm() {
         marginTop: 16,
     };
 
-    const isStepValid = () => {
-        switch (current) {
-            case 0:
-                return studentData.username && studentData.mothers_name && studentData.fathers_name &&
-                    studentData.address && studentData.dob && studentData.mobile && studentData.email && studentData.gender;
-            case 1:
-                return studentData.course_selected && studentData.total_class;
-            case 2:
-                return studentData.fees_paid;
-            default:
-                return true;
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await get_largest_admission_no()
+                console.log(response);
+                studentData.admission_no = response?.data + 1
+            }
+            catch (error) {
+                alert(error)
+            }
         }
-    }
+        fetchData()
+    }, [studentData])
+
+    console.log(studentData);
+    console.log(feesDetails);
 
     const next = () => {
         if (isStepValid()) {
@@ -90,6 +93,24 @@ function StudentForm() {
         title: item.title,
     }));
 
+    const isStepValid = () => {
+        switch (current) {
+            case 0:
+                return studentData.username && studentData.mothers_name && studentData.fathers_name &&
+                    studentData.address && studentData.dob && studentData.mobile && studentData.email && studentData.gender;
+            case 1:
+                return studentData.course_selected && studentData.total_class;
+            case 2:
+                return studentData.fees_paid;
+            default:
+                return true;
+        }
+    }
+
+
+
+
+
     const handleChange = (e) => {
         const { name, value } = e.target
         setStudentData({ ...studentData, [name]: value })
@@ -101,8 +122,15 @@ function StudentForm() {
     // function to get date of birth
     const handleDateChange = (date, dateString) => {
         const age = calculateAge(date);
-        setStudentData({ ...studentData, dob: dateString, age });
+        if (age > 17) {
+            setStudentData({ ...studentData, dob: dateString, age });
+        }
+        else {
+            alert("Age should be greater than 18")
+        }
     };
+
+
 
     // function to calculate age based on date of birth
     const calculateAge = (date) => {
@@ -116,26 +144,24 @@ function StudentForm() {
         return age;
     };
 
-    // function to submit the form
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        const student_response = await upload_new_student(studentData)
-        if (200 <= student_response.status < 300) {
-            const response = await upload_new_fees(feesDetails)
-            console.log(response);
-            if (199 < response.status < 300) {
-                alert("Student Registered Successfully")
-                handleReset()
-                navigate("/student-details")
-            }
-            else {
-                console.log("Fees no uploaded");
-            }
+    function generateAlphanumericID(length) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            result += characters[randomIndex];
         }
-        else {
-            console.log("student not uploaded");
-        }
+        return result;
     }
+
+    function formatDate() {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
 
     // function to reset the form
     const handleReset = () => {
@@ -154,6 +180,39 @@ function StudentForm() {
             age: ""
         })
     }
+
+    // function to submit the form
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        studentData.admission_date = formatDate()
+        studentData.sid = generateAlphanumericID(20);
+        feesDetails.paid_date = formatDate()
+
+        const student_response = await upload_new_student(studentData)
+        if (200 <= student_response.status < 300) {
+
+            feesDetails.admission_no = studentData.admission_no
+            feesDetails.paid_date = formatDate()
+            feesDetails.fees_purpose = "Course Fees"
+
+            const response = await upload_new_fees(feesDetails)
+            console.log(response);
+            if (199 < response.status < 300) {
+                alert("Student Registered Successfully")
+                handleReset()
+                navigate(`/student-details/${studentData.sid}`)
+            }
+            else {
+                console.log("Fees no uploaded");
+            }
+        }
+        else {
+            console.log("student not uploaded");
+        }
+    }
+
+
 
     return (
         <React.Fragment>
@@ -279,7 +338,7 @@ function StudentForm() {
                                 </div>
                                 <div className='d-flex flex-column justify-content-start w-50'>
                                     <Form.Item label="Student ID" style={{ marginLeft: "24px" }}>
-                                        <Input value={studentData.sid} />
+                                        <Input value={studentData.admission_no} />
                                     </Form.Item>
                                     <Form.Item label="Fathers Name" style={{ marginLeft: "10px" }}>
                                         <Input name="fathers_name" value={studentData.fathers_name} />

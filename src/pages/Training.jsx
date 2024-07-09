@@ -3,8 +3,21 @@ import NewTraining from "../components/NewTraining"
 import Breadcrump from "../components/ui/Breadcrump"
 import SearchBar from "../components/ui/SearchBar"
 import TrainingCard from "../components/TrainingCard"
+import { useEffect, useState } from "react"
+import { get_all_training_details } from "../services/allAPI"
 
 function Training() {
+    const [trainings, setTrainings] = useState()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await get_all_training_details()
+            if (199 < response.status < 300) {
+                setTrainings(response.data)
+            }
+        }
+        fetchData()
+    }, [])
     return (
         <>
             {/* Breadcrump */}
@@ -21,26 +34,13 @@ function Training() {
                 </div>
             </div>
 
-            {/* View Training */}
-            {/* <div className="mt-5 ">
-                <div className="row">
-                    <div className="col-md-4">
-                        <Box component={Paper} elevation={16}>
-                            <Typography>T ID <span style={{ color: "grey" }}>T101</span></Typography>
-                        </Box>
-                    </div>
-                    <div className="col-md-4"></div>
-                    <div className="col-md-4"></div>
-                </div>
-            </div> */}
 
             <div className="mt-5" style={{ display: "grid", gridTemplateColumns: "auto auto auto", gridGap: "1.5rem" }}>
-                <TrainingCard />
-                <TrainingCard />
-                <TrainingCard />
-                <TrainingCard />
-                <TrainingCard />
-                <TrainingCard />
+                {
+                    trainings?.map((training, key) => (
+                        <TrainingCard key={key} training={training} />
+                    ))
+                }
             </div>
         </>
     )

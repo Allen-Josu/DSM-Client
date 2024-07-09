@@ -7,7 +7,7 @@ import { Form, Input } from 'antd';
 import { DatePicker } from 'antd';
 import Table from 'react-bootstrap/Table';
 import { Button } from 'antd';
-import { get_student_details, upload_new_training } from "../services/allAPI";
+import { get_student_admission_details, upload_new_training } from "../services/allAPI";
 
 function NewTraining() {
 
@@ -37,7 +37,6 @@ function NewTraining() {
     const handleOk = async () => {
         if (trainingData.students.length > 0 && trainingData.trainer && trainingData.date && trainingData.vehicle) {
             const response = await upload_new_training(trainingData)
-            console.log(response);
             if (200 <= response.status < 300) {
                 alert("Training Details Uploadedd Successfully")
                 handleReset()
@@ -71,16 +70,18 @@ function NewTraining() {
 
     //function to get the student based on unique Student Id(sid)
     const GetStudentDetails = async () => {
-        const student_id = input
-        // GET Function not working
-        const studentDetails = await get_student_details(student_id)
-        if (199 < studentDetails.status < 300) {
-            const student_name = studentDetails.userName
-            const new_student = { student_id, student_name }
+        const admission_no = input
+        const studentDetails = await get_student_admission_details(admission_no)
+        if (199 < studentDetails?.response?.status < 300) {
+            const username = studentDetails?.data?.username
+            const new_student = { admission_no, username }
             setTrainingData(prevData => ({
                 ...prevData, students: [...prevData.students, new_student]
             }))
             setInput("")
+        }
+        else if (399 < studentDetails.response.status < 500) {
+            alert("No Student Found. Try again")
         }
         else {
             alert("No Student Found")
@@ -89,7 +90,6 @@ function NewTraining() {
 
     //function to delete student from the table
     const DeleteStudentDetails = (id) => {
-        console.log(id);
         setTrainingData(prevData => ({ ...prevData, students: prevData.students.filter(items => items.student_id !== id) }))
     }
 
@@ -161,12 +161,12 @@ function NewTraining() {
                                 </thead>
                                 <tbody className="text-center"  >
                                     {
-                                        trainingData.students.map((items, sl_no) => (
-                                            <tr>
+                                        trainingData.students.map((student, sl_no) => (
+                                            <tr  >
                                                 <td>{sl_no + 1}</td>
-                                                <td>{items.student_id}</td>
-                                                <td>{items.student_name}</td>
-                                                <td className="d-flex justify-content-center"><Button danger className="d-flex align-items-center gap-2 px-3" onClick={() => { DeleteStudentDetails(items.student_id) }}><BiTrash /> Delete</Button></td>
+                                                <td>{student.admission_no}</td>
+                                                <td>{student.username}</td>
+                                                <td className="d-flex justify-content-center"><Button danger className="d-flex align-items-center gap-2 px-3" onClick={() => { DeleteStudentDetails(student.sid) }}><BiTrash /> Delete</Button></td>
                                             </tr>
                                         ))
                                     }
